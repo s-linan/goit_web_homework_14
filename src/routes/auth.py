@@ -25,10 +25,10 @@ get_refresh_token = HTTPBearer()
     "/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED
 )
 async def signup(
-    body: UserSchema,
-    bt: BackgroundTasks,
-    request: Request,
-    db: AsyncSession = Depends(get_db),
+        body: UserSchema,
+        bt: BackgroundTasks,
+        request: Request,
+        db: AsyncSession = Depends(get_db),
 ):
     """
     The signup function creates a new user in the database.
@@ -56,7 +56,7 @@ async def signup(
 
 @router.post("/login", response_model=TokenSchema)
 async def login(
-    body: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)
+        body: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)
 ):
     """
     The login function is used to authenticate a user.
@@ -93,8 +93,8 @@ async def login(
 
 @router.get("/refresh_token", response_model=TokenSchema)
 async def refresh_token(
-    credentials: HTTPAuthorizationCredentials = Depends(get_refresh_token),
-    db: AsyncSession = Depends(get_db),
+        credentials: HTTPAuthorizationCredentials = Depends(get_refresh_token),
+        db: AsyncSession = Depends(get_db),
 ):
     """
     The refresh_token function is used to refresh the access token.
@@ -157,10 +157,10 @@ async def confirmed_email(token: str, db: AsyncSession = Depends(get_db)):
 
 @router.post("/request_email")
 async def request_email(
-    body: RequestEmail,
-    background_tasks: BackgroundTasks,
-    request: Request,
-    db: AsyncSession = Depends(get_db),
+        body: RequestEmail,
+        background_tasks: BackgroundTasks,
+        request: Request,
+        db: AsyncSession = Depends(get_db),
 ):
     """
     The request_email function is used to send a confirmation email to the user.
@@ -186,7 +186,6 @@ async def request_email(
             send_email, user.email, user.username, str(request.base_url)
         )
     return {"message": "Check your email for confirmation."}
-
 
 # @router.post("/reset_password")
 # async def reset_password(

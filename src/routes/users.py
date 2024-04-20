@@ -54,9 +54,9 @@ async def get_current_user(user: User = Depends(auth_service.get_current_user)):
     dependencies=[Depends(RateLimiter(times=1, seconds=5))],
 )
 async def update_avatar_url(
-    file: UploadFile = File(),
-    user: User = Depends(auth_service.get_current_user),
-    db: AsyncSession = Depends(get_db),
+        file: UploadFile = File(),
+        user: User = Depends(auth_service.get_current_user),
+        db: AsyncSession = Depends(get_db),
 ):
     """
     The update_avatar_url function is used to update the avatar url of a user.

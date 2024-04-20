@@ -93,7 +93,6 @@ async def update_avatar_url(email: str, url: str | None, db: AsyncSession) -> Us
     await db.refresh(user)
     return user
 
-
 # async def reset_password(email: str, new_password_hash: str, db: AsyncSession) -> None:
 #     stmt = select(User).filter_by(email=email)
 #     user = await db.execute(stmt)

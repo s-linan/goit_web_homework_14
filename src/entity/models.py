@@ -43,4 +43,3 @@ class User(Base):
     updated_at = Column(Date, default=func.now(), onupdate=func.now())
     role = Column(Enum(Role), default=Role.user, nullable=True)
     confirmed = Column(Boolean, default=False, nullable=True)
-

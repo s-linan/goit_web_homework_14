@@ -55,7 +55,7 @@ class Auth:
 
     # define a function to generate a new access token
     async def create_access_token(
-        self, data: dict, expires_delta: Optional[float] = None
+            self, data: dict, expires_delta: Optional[float] = None
     ):
         """
         The create_access_token function creates a new access token.
@@ -85,7 +85,7 @@ class Auth:
 
     # define a function to generate a new refresh token
     async def create_refresh_token(
-        self, data: dict, expires_delta: Optional[float] = None
+            self, data: dict, expires_delta: Optional[float] = None
     ):
         """
         The create_refresh_token function creates a refresh token for the user.
@@ -141,7 +141,7 @@ class Auth:
             )
 
     async def get_current_user(
-        self, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
+            self, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
     ):
         """
         The get_current_user function is a dependency that will be used in the
@@ -161,7 +161,6 @@ class Auth:
         )
 
         try:
-            # Decode JWT
             payload = jwt.decode(token, self.SECRET_KEY, algorithms=[self.ALGORITHM])
             if payload["scope"] == "access_token":
                 email = payload["sub"]
@@ -221,7 +220,7 @@ class Auth:
             email = payload["sub"]
             return email
         except JWTError as e:
-            # print(e)
+            print(e)
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 detail="Invalid token for email verification",
