@@ -9,14 +9,14 @@ from src.repository.contacts import create_contact, get_all_contacts, get_contac
 
 class TestAsyncContacts(unittest.IsolatedAsyncioTestCase):
     def setUp(self) -> None:
-        # self.user = User(id=1, username='test_user', email='test@ex.ua', password='qwerty', confirmed=True)
+        self.user = User(id=1, username='test_user', email='test@ex.ua', password='qwerty', confirmed=True)
         self.session = AsyncMock(spec=AsyncSession)
 
     async def test_get_all_contacts(self):
         limit = 10
         offset = 0
-        contacts = [Contact(id=1, first_name='test_first_name_1', last_name='test_last_name_1', email='test1@ex.ua'),
-                    Contact(id=2, first_name='test_first_name_2', last_name='test_last_name_2', email='test2@ex.ua')]
+        contacts = [Contact(id=1, first_name='test_first_name_1', last_name='test_last_name_1', email='test1@ex.ua', user=self.user),
+                    Contact(id=2, first_name='test_first_name_2', last_name='test_last_name_2', email='test2@ex.ua', user=self.user)]
         mocked_contacts = MagicMock()
         mocked_contacts.scalars.return_value.all.return_value = contacts
         self.session.execute.return_value = mocked_contacts

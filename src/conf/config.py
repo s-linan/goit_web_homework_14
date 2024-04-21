@@ -4,9 +4,9 @@ from typing import Any
 
 
 class Settings(BaseSettings):
-    DB_URL: str = "postgresql+asyncpg://postgres:111111@localhost:5432/abc"
+    DB_URL: str = "postgresql+asyncpg://postgres:111111@localhost:5432/postgres"
     SECRET_KEY_JWT: str = "1234567890"
-    ALGORITHM: str = "HS512"
+    ALGORITHM: str = "HS256"
     MAIL_USERNAME: EmailStr = "postgres@mail.com"
     MAIL_PASSWORD: str = "postgres"
     MAIL_FROM: str = "fatsapiuser@meta.ua"
