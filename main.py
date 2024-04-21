@@ -24,16 +24,16 @@ app.include_router(auth.router, prefix="/api")
 app.include_router(contacts.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
 
-ALLOWED_IPS = ["*"
-    # ip_address("192.168.1.0"),
-    # ip_address("172.16.0.0"),
-    # ip_address("127.0.0.1"),
+ALLOWED_IPS = [
+    ip_address("192.168.1.0"),
+    ip_address("172.16.0.0"),
+    ip_address("127.0.0.1"),
 ]
 
 banned_ips = [
-    # ip_address("192.168.1.1"),
-    # ip_address("192.168.1.2"),
-    # # ip_address("127.0.0.1"),
+    ip_address("192.168.1.1"),
+    ip_address("192.168.1.2"),
+    # ip_address("127.0.0.1"),
 ]
 
 origins = ["http://localhost:3000", "http://127.0.0.1:8000/"]
@@ -73,25 +73,25 @@ async def user_agent_ban_middleware(request: Request, call_next: Callable):
     return response
 
 
-# @app.middleware("http")
-# async def ban_ips(request: Request, call_next: Callable):
-#     """
-#     The ban_ips function is a middleware function that checks if the client's IP address
-#     is in the banned_ips list. If it is, then we return a JSON response with status code 403
-#     and an error message. Otherwise, we call the next middleware function and return its response.
-#
-#     :param request: Request: Get the ip address of the client
-#     :param call_next: Callable: Call the next function in the chain
-#     :return: A jsonresponse object with a status code of 403 if the client's ip address is in the banned_ips list
-#     :doc-author: Trelent
-#     """
-#     ip = ip_address(request.client.host)
-#     if ip in banned_ips:
-#         return JSONResponse(
-#             status_code=status.HTTP_403_FORBIDDEN, content={"detail": "You are banned"}
-#         )
-#     response = await call_next(request)
-#     return response
+@app.middleware("http")
+async def ban_ips(request: Request, call_next: Callable):
+    """
+    The ban_ips function is a middleware function that checks if the client's IP address
+    is in the banned_ips list. If it is, then we return a JSON response with status code 403
+    and an error message. Otherwise, we call the next middleware function and return its response.
+
+    :param request: Request: Get the ip address of the client
+    :param call_next: Callable: Call the next function in the chain
+    :return: A jsonresponse object with a status code of 403 if the client's ip address is in the banned_ips list
+    :doc-author: Trelent
+    """
+    ip = ip_address(request.client.host)
+    if ip in banned_ips:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN, content={"detail": "You are banned"}
+        )
+    response = await call_next(request)
+    return response
 
 
 @app.middleware("http")
@@ -112,6 +112,7 @@ async def limit_access_by_ip(request: Request, call_next: Callable):
             content={"detail": "Not allowed IP address"},
         )
     response = await call_next(request)
+    print(">>>>>>>>>>>>limit_access_by_ip")
     return response
 
 
