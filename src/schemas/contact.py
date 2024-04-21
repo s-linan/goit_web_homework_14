@@ -17,13 +17,12 @@ class ContactUpdate(BaseModel):
     first_name: str
     last_name: str
     email: EmailStr
-    phone_number: Optional[str]
-    birthday: Optional[date]
-    additional_data: Optional[str]
-    completed: bool
+    phone_number: Optional[str] = Field(None, max_length=15)
+    birthday: Optional[date] = Field(None)
+    additional_data: Optional[str] = Field(None, max_length=250)
+    completed: Optional[bool] = Field(False)
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes = True)  # noqa
 
 
 class ContactResponse(BaseModel):
